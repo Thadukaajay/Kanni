@@ -54,7 +54,7 @@ stages:
   - deployment: DeployLinuxWebApp
     displayName: Deploy Linux Web App
     environment: $(environmentName)
-    pool: AJAY2
+    pool: AJAY
     strategy:
       runOnce:
         deploy:
