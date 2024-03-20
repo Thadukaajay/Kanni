@@ -15,7 +15,7 @@ variables:
   webAppName: 'ajaygoud'
 
   # Environment name
-  #environmentName: 'ajaygoud'
+  environmentName: 'ajay'
 
   # Agent VM image name
   #vmImageName: 'linux-latest'
@@ -26,7 +26,7 @@ stages:
   jobs:
   - job: MavenPackageAndPublishArtifacts
     displayName: Maven Package and Publish Artifacts
-    pool: 'AJAY'
+    #pool: 'AJAY'
       
 
     steps:
@@ -54,7 +54,7 @@ stages:
   - deployment: DeployLinuxWebApp
     displayName: Deploy Linux Web App
     environment: $(AJAY)
-    pool: AJAY
+    #pool: AJAY
     strategy:
       runOnce:
         deploy:
@@ -74,7 +74,7 @@ stages:
   - deployment: DeployLinuxWebApp
     displayName: Deploy Linux Web App
     environment: $(environmentName)
-    pool: AJAY
+    #pool: AJAY
     strategy:
       runOnce:
         deploy:
