@@ -53,7 +53,7 @@ stages:
   jobs:
   - deployment: DeployLinuxWebApp
     displayName: Deploy Linux Web App
-    environment: $(AJAY)
+    environment: $(kanni)
     #pool: AJAY
     strategy:
       runOnce:
