@@ -1,108 +1,14 @@
-trigger: none
-
-pool:
-  vmImage: Build-server
-
-  environment: 
-    name: VMenv
-    resourceType: virtualMachine
-    resourceName: TestServer01
-stages:
-  - stage: A
-    jobs:
-      - job: build_image
+jobs:
+  # track deployments on the environment
+- deployment: DeployWeb
+  displayName: deploy Web App
+  pool:
+    vmImage: ubuntu-latest
+  # creates an environment if it doesn't exist
+  environment: 'smarthotel-dev'
+  strategy:
+    # default deployment strategy, more coming...
+    runOnce:
+      deploy:
         steps:
-          - script: echo "this build image"
-  - stage: B
-    jobs:
-      - job: uat_job
-        steps:
-          - script: echo "this frist job"
-       
-
-  - stage: prod_approval
-    displayName: 'Prod Approval '
-    dependsOn: B
-    condition: or(and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master')), and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main')))
-    jobs:
-    - deployment: Manual_yes_before_prod
-      displayName: 'Manual intervention before prod'
-      workspace:
-        clean: all
-      # creates an environment if it doesn't exist
-      environment: 'prod-env'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - script: echo "manual triggered next job for prod"
- 
-
-  - stage: prod_frist
-    displayName: Prod stage
-    dependsOn:
-      - A
-      - B
-      - prod_approval
-    condition: or(and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master')), and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main')))
-    jobs:
-    - job: deploy_to_prod
-      displayName: 'Deploy to Prod'
-      workspace:
-        clean: all
-      steps:
-      - checkout: self
-      - script: echo "this is checkout"
-
-    - job: apim_build_deploy
-      displayName: Build and Deploy to APIM
-      dependsOn: 
-      - deploy_to_prod
-      #condition: contains(variables.prTitle, '[run apim]')
-      continueOnError: false
-
-
-    - job: run_prod_tests
-      dependsOn:
-      - deploy_to_prod
-      - apim_build_deploy
-      displayName: 'Run Prod Tests'
-      workspace:
-        clean: all
-      steps:
-      - bash: echo "run tests in prod"
-
-
-  - stage: rollback_approval_prod
-    displayName: 'Rollback Approval PROD '
-    dependsOn: prod_frist
-    condition: or(and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master')), and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main')))
-    jobs:
-    - deployment: Manual_yes_before_prod
-      displayName: 'Manual intervention before prod'
-     
-      # creates an environment if it doesn't exist
-      environment: 'prod-env'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - script: echo "manual triggered next job for prod"
-
-  - stage: Rollback_Prod
-    displayName: Rollback 
-    dependsOn: 
-      - rollback_approval_prod
-      - A
-    condition: or(and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master')), and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main')))
-   
-    jobs:
-    - deployment: Manual_yes_before_prod
-      displayName: 'Manual intervention before prod'
-      # creates an environment if it doesn't exist
-      environment: 'prod-env'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - script: echo "last job"
+        - script: echo my first deployment
