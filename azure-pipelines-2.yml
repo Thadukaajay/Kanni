@@ -38,18 +38,18 @@
 
 #   # Agent VM image name
 #   #vmImageName: 'linux-latest'
-
-trigger:
-  - main
-pool:
+trigger: 
+- main
+ 
+pool: 
   vmImage: QG Build Servers
   jobs:
-    - deployment: VMDeploy
-      displayName: Deploy to VM
-      environment:
-        name: VMenv1
-        resourceName: VMenv
-        resourceType: virtualMachine
+     - deployment: VMDeploy
+       displayName: Deploy to VM
+       environment: 
+          name: VMenv1
+          resourceType: virtualMachine
+          resourceName: TestServer01 # only deploy to the VM resource named USHAN-PC
 
 stages:
   - stage: Build
