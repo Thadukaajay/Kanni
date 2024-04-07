@@ -1,66 +1,20 @@
-# trigger: 
-# - main
- 
-# pool: 
-#    vmImage: ubuntu-latest
- 
-# jobs:
-# - deployment: VMDeploy
-#   displayName: Deploy to VM
-#   environment: 
-#     name: TEST
-#     resourceType: virtualMachine
-#     resourceName: TestServer01 # only deploy to the VM resource named USHAN-PC
-#     #tags: "service"
-#   strategy:
-#           runOnce:
-#             deploy:
-#               steps:
-#                 - download: none
-# Maven package Java project Web App to Linux on Azure
-# Build your Java project and deploy it to Azure as a Linux web app
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
-# trigger:
-# - master
-
-# variables:
-
-#   # Azure Resource Manager connection created during pipeline creation
-#   azureSubscription: '54f1d765-4c37-47ab-96c5-1ea1c0d98c27'
-
-#   # Web app name
-#   #webAppName: 'thadUka'
-
-#   # Environment name
-#   #environmentName: 'kanni'
-
-#   # Agent VM image name
-#   #vmImageName: 'linux-latest'
 trigger: 
 - main
- 
+
 pool: 
-  vmImage: QG Build Servers
-  jobs:
-    - deployment: VMDeploy
+   vmImage: ubuntu-latest
+
+jobs:
+- deployment: VMDeploy
   displayName: Deploy to VM
   environment: 
-    name: VMenv
+    name: VMenv1
     resourceType: virtualMachine
     resourceName: TestServer01 # only deploy to the VM resource named USHAN-PC
- 
-
- 
-  
-stages:
-  - stage: Build
-    displayName: Build stage
-    jobs:
-      - job: MavenPackageAndPublishArtifacts
-        displayName: Maven Package and Publish Artifacts
-        steps:
+  strategy:
+    runOnce:
+      deploy:   
+          steps:
           - task: Maven@3
             displayName: Maven Package
             inputs:
@@ -72,4 +26,6 @@ stages:
               Contents: "**/target/*.?(war)"
               TargetFolder: $(Build.ArtifactStagingDirectory)
           - upload: $(Build.ArtifactStagingDirectory)
-            artifact: drop   
+            artifact: drop
+     
+        
