@@ -1,6 +1,5 @@
 trigger: 
 - main
-
 pool: 
    vmImage: ubuntu-latest
 
@@ -28,5 +27,3 @@ jobs:
               TargetFolder: $(Build.ArtifactStagingDirectory)
           - upload: $(Build.ArtifactStagingDirectory)
             artifact: drop
-     
-        
