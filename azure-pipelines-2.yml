@@ -4,9 +4,10 @@ trigger:
 pool: 
    vmImage: ubuntu-latest
 
+
 jobs:
-- deployment: VMDeploy
-  displayName: Deploy to VM
+- deployment: Build
+  displayName: Maven Package and Publish Artifacts
   environment: 
     name: VMenv1
     resourceType: virtualMachine
