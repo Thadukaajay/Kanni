@@ -47,7 +47,7 @@ pool:
     - deployment: VMDeploy
       displayName: Deploy to VM
       environment:
-        name: VMenv
+        name: VMenv1
         resourceName: VMenv
         resourceType: virtualMachine
 
