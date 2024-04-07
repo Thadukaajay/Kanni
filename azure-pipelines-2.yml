@@ -45,8 +45,8 @@ trigger:
 pool:
   vmImage: ubuntu-latest
   jobs:
-    - deployment: VMDeploy
-      displayName: Deploy to VM
+    #- deployment: VMDeploy
+      #displayName: Deploy to VM
       environment:
         name: VMenv
         resourceName: VMenv
