@@ -42,7 +42,7 @@
 trigger:
   - main
 pool:
-  vmImage: ubuntu-latest
+  vmImage: QG Build Servers
   jobs:
     - deployment: VMDeploy
       displayName: Deploy to VM
