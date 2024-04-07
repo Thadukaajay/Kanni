@@ -50,7 +50,7 @@ pool:
       environment:
         name: VMenv
         resourceName: VMenv
-        resourceType: virtualMachine
+        resourceType: TestServer01
 
 stages:
   - stage: Build
