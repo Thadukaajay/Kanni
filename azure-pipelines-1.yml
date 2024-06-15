@@ -62,7 +62,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure Web App Deploy: AJAYGOUD'
             inputs:
-              azureSubscription: $(azureSubscription)
-              appType: webAppLinux
-              appName: $(webAppName)
+              azureSubscription: 'Mindtree_Azure_DevOps (e9735a76-e0fb-4c01-b485-f95afa5949d0)'
+              appType: 'webAppLinux'
+              appName: 'AJAY122'
               package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
