@@ -1,26 +1,57 @@
-# Maven package Java project Web App to Linux on Azure
-# Build your Java project and deploy it to Azure as a Linux web app
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+# # Maven package Java project Web App to Linux on Azure
+# # Build your Java project and deploy it to Azure as a Linux web app
+# # Add steps that analyze code, save build artifacts, deploy, and more:
+# # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
+# # trigger:
+# # - master
+
+# # variables:
+
+# #   # Azure Resource Manager connection created during pipeline creation
+# #   azureSubscription: 'fe6a3217-2ab6-4742-a167-c38464905206'
+
+# #   # Web app name
+# #   webAppName: 'AJAYGOUD'
+
+# #   # Environment name
+# #   environmentName: 'AJAYGOUD'
+
+# #   # Agent VM image name
+# #   vmImageName: 'windows-latest'
+# # pool:
+# #   vmImage: 'ubuntu-latest'
 # trigger:
-# - master
-
+#   branches:
+#     include:
+#     - master
+#     - feature/*
+#   paths:
+#     include:
+#     - deployment/tradein_vehicle_acquisition_discussed/*
+#     exclude:
+#     - deployment/*
 # variables:
-
-#   # Azure Resource Manager connection created during pipeline creation
-#   azureSubscription: 'fe6a3217-2ab6-4742-a167-c38464905206'
-
-#   # Web app name
-#   webAppName: 'AJAYGOUD'
-
-#   # Environment name
-#   environmentName: 'AJAYGOUD'
-
-#   # Agent VM image name
-#   vmImageName: 'windows-latest'
+# - name: System.Debug
+#   value: true
+# # stages:
+# # - stage: Build
+# #   displayName: Build stage
+# #   jobs:
+# #   - job: Build
+# #     displayName: Build job
 # pool:
-#   vmImage: 'ubuntu-latest'
+#       vmImage: 'ubuntu-latest'
+# stages:
+# - stage: Build
+#   displayName: Build stage
+#   jobs:
+#   - job: MavenPackageAndPublishArtifacts
+#     displayName: Maven Package and Publish Artifacts
+#     # pool:
+#     #   vmImage: $(vmImageName)
+pool:
+  vmImage: 'ubuntu-latest'
 trigger:
   branches:
     include:
@@ -34,22 +65,14 @@ trigger:
 variables:
 - name: System.Debug
   value: true
-# stages:
-# - stage: Build
-#   displayName: Build stage
-#   jobs:
-#   - job: Build
-#     displayName: Build job
-pool:
-      vmImage: 'ubuntu-latest'
 stages:
 - stage: Build
   displayName: Build stage
   jobs:
-  - job: MavenPackageAndPublishArtifacts
-    displayName: Maven Package and Publish Artifacts
-    # pool:
-    #   vmImage: $(vmImageName)
+  - job: Build
+    displayName: Build job
+    pool:
+      vmImage: 'ubuntu-latest'
 
     steps:
     - task: Maven@3
@@ -84,7 +107,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     environment:
-      name: 'mldev'    
+      name: 'mldev'
     strategy:
       runOnce:
         deploy:
