@@ -50,8 +50,8 @@
 #     displayName: Maven Package and Publish Artifacts
 #     # pool:
 #     #   vmImage: $(vmImageName)
-pool:
-  vmImage: 'ubuntu-latest'
+# pool:
+#   vmImage: 'ubuntu-latest'
 trigger:
   branches:
     include:
