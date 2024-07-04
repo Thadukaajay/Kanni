@@ -50,8 +50,8 @@
 #     displayName: Maven Package and Publish Artifacts
 #     # pool:
 #     #   vmImage: $(vmImageName)
-# pool:
-#   vmImage: 'ubuntu-latest'
+pool:
+  vmImage: 'ubuntu-latest'
 trigger:
   branches:
     include:
@@ -100,12 +100,13 @@ stages:
 #     environment: $(environmentName)
     # pool:
     #   vmImage: $(vmImageName)
+
 - stage: DeployToDev
   displayName: 'Deploy stage'
   jobs:
   - deployment: DevDeploy
-    pool:
-      vmImage: 'ubuntu-latest'
+    # pool:
+    #   vmImage: 'ubuntu-latest'
     environment:
       name: 'mldev'
     strategy:
