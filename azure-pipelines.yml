@@ -24,7 +24,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'AJAY222'
+        azureSubscription: 'kaniiiiiiii'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
